@@ -6,16 +6,6 @@ import os
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 
-
-# Handling Key Import Errors
-def get_env_variable(var_name):
-    """ Get the environment variable or return exception """
-    try:
-        return os.environ[var_name]
-    except KeyError:
-        error_msg = "Set the %s environment variable" % var_name
-
-
 sched = BlockingScheduler()
 
 
@@ -24,8 +14,8 @@ sched = BlockingScheduler()
 def send_email():
     to_list = ['ppinzani89@gmail.com']
     to = ", ".join(to_list)
-    gmail_user = get_env_variable['GMAIL_USER']
-    gmail_pwd = get_env_variable['GMAIL_PASS']
+    gmail_user = os.environ['GMAIL_USER']
+    gmail_pwd = os.environ['GMAIL_PASS']
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()

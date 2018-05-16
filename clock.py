@@ -23,8 +23,9 @@ def send_email():
     try:
         print 'Trying to login with user: ' + gmail_user + '    ' + gmail_pwd
         smtpserver.login(gmail_user, gmail_pwd)
-    except:
-        print "Error in login!!"
+    except Exception as e:
+        print e
+
     header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: Entradas Che Culia! \n'
     print header
     msg = header + '\n Prueba \n\n'

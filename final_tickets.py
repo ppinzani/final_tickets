@@ -3,8 +3,18 @@ import json
 import smtplib
 from time import gmtime, strftime
 from apscheduler.schedulers.blocking import BlockingScheduler
+import os
 
 sched = BlockingScheduler()
+
+# Handling Key Import Errors
+def get_env_variable(var_name):
+    """ Get the environment variable or return exception """
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "Set the %s environment variable" % var_name
+        raise ImproperlyConfigured(error_msg)
 
 
 # Function to send email alert from Gmail if tickets are found
@@ -12,8 +22,8 @@ sched = BlockingScheduler()
 def send_email():
     to_list = ['ppinzani89@gmail.com']
     to = ", ".join(to_list)
-    gmail_user = 'ppinzani89@gmail.com'
-    gmail_pwd = '34767625'
+    gmail_user = get_env_variable['GMAIL_USER']
+    gmail_pwd = get_env_variable['GMAIL_PASS']
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()

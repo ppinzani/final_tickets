@@ -2,10 +2,10 @@ import requests
 import json
 import smtplib
 from time import gmtime, strftime
-from apscheduler.schedulers.blocking import BlockingScheduler
 import os
+from apscheduler.schedulers.blocking import BlockingScheduler
 
-sched = BlockingScheduler()
+
 
 # Handling Key Import Errors
 def get_env_variable(var_name):
@@ -14,7 +14,9 @@ def get_env_variable(var_name):
         return os.environ[var_name]
     except KeyError:
         error_msg = "Set the %s environment variable" % var_name
-        raise ImproperlyConfigured(error_msg)
+
+
+sched = BlockingScheduler()
 
 
 # Function to send email alert from Gmail if tickets are found
@@ -29,6 +31,7 @@ def send_email():
     smtpserver.starttls()
     smtpserver.ehlo
     try:
+        print 'Trying to login with user' + gmail_user + '    ' + gmail_pwd
         smtpserver.login(gmail_user, gmail_pwd)
     except:
         print "Error in login!!"

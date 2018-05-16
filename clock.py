@@ -28,11 +28,17 @@ def send_email():
     smtpserver.ehlo()
     smtpserver.starttls()
     smtpserver.ehlo
-    smtpserver.login(gmail_user, gmail_pwd)
+    try:
+        smtpserver.login(gmail_user, gmail_pwd)
+    except:
+        print "Error in login!!"
     header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: Entradas Che Culia! \n'
     print header
     msg = header + '\n Prueba \n\n'
-    smtpserver.sendmail(gmail_user, to_list, msg)
+    try:
+        smtpserver.sendmail(gmail_user, to_list, msg)
+    except:
+        print "Error Sending mail!!"
     print 'done!'
     smtpserver.close()
 

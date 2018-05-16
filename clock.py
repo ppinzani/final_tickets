@@ -14,14 +14,14 @@ sched = BlockingScheduler()
 def send_email():
     to_list = ['ppinzani89@gmail.com']
     to = ", ".join(to_list)
-    gmail_user = os.environ['GMAIL_USER']
-    gmail_pwd = os.environ['GMAIL_PASS']
+    gmail_user = 'ppinzani89@gmail.com'
+    gmail_pwd = '34767625'
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()
     smtpserver.ehlo
     try:
-        print 'Trying to login with user' + gmail_user + '    ' + gmail_pwd
+        print 'Trying to login with user: ' + gmail_user + '    ' + gmail_pwd
         smtpserver.login(gmail_user, gmail_pwd)
     except:
         print "Error in login!!"

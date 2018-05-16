@@ -30,7 +30,7 @@ def send_email():
     print 'done!'
     smtpserver.close()
 
-@sched.scheduled_job('interval', minutes=5)
+@sched.scheduled_job('interval', minutes=1)
 def get_tickets_available():
     tix_data = requests.get("https://tickets.fifa.com/API/WCachedL1/en/BasicCodes/GetBasicCodesAvailavilityDemmand?currencyId=USD" )
     tix = tix_data.text
@@ -40,7 +40,7 @@ def get_tickets_available():
 
     match1 = [el for el in avail if el["p"] == "IMT23"][0:3] #Arg Croatia
     match2 = [el for el in avail if el["p"] == "IMT39"][0:3] #Arg Nig
-    match3 = [el for el in avail if el["p"] == "IMT52"][0:3] #Octavos
+    match3 = [el for el in avail if el["p"] == "IMT14"][0:3]#"IMT52"][0:3] #Octavos
     match4 = [el for el in avail if el["p"] == "IMT07"][0:3] #Arg Isl
 
     match1_av = False

@@ -10,7 +10,6 @@ sched = BlockingScheduler()
 
 
 # Function to send email alert from Gmail if tickets are found
-@sched.scheduled_job('interval', minutes=1)
 def send_email():
     to_list = ['ppinzani89@gmail.com']
     to = ", ".join(to_list)
@@ -21,23 +20,18 @@ def send_email():
     smtpserver.starttls()
     smtpserver.ehlo
     try:
-        print 'Trying to login with user: ' + gmail_user + '    ' + gmail_pwd
         smtpserver.login(gmail_user, gmail_pwd)
+        header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: Entradas Che Culia! \n'
+        print header
+        msg = header + '\n Hay entradas. A comprar!!! \n\n'
+        smtpserver.sendmail(gmail_user, to_list, msg)
     except Exception as e:
         print e
-
-    header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: Entradas Che Culia! \n'
-    print header
-    msg = header + '\n Prueba \n\n'
-    try:
-        smtpserver.sendmail(gmail_user, to_list, msg)
-    except:
-        print "Error Sending mail!!"
     print 'done!'
     smtpserver.close()
 
-
-def get_tickets_available(sc):
+@sched.scheduled_job('interval', minutes=5)
+def get_tickets_available():
     tix_data = requests.get("https://tickets.fifa.com/API/WCachedL1/en/BasicCodes/GetBasicCodesAvailavilityDemmand?currencyId=USD" )
     tix = tix_data.text
     tx = json.loads(tix)
@@ -75,9 +69,6 @@ def get_tickets_available(sc):
         print "Hay Tickets!"
         print strftime("%Y-%m-%d %H:%M:%S", gmtime())
         send_email()
-        sc.enter(600, 1, get_tickets_available,(sc, ))
-
-    sc.enter(300, 1, get_tickets_available,(sc, ))
 
 
 sched.start()

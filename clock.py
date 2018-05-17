@@ -25,10 +25,12 @@ def send_email():
         print header
         msg = header + '\n Hay entradas. A comprar!!!  http://www.fifa.com/worldcup/organisation/ticketing/purchase.html \n\n'
         smtpserver.sendmail(gmail_user, to_list, msg)
+        smtpserver.close()
+        print 'done!'
     except Exception as e:
         print e
-    print 'done!'
-    smtpserver.close()
+        smtpserver.close()
+        send_email() # Retry
 
 @sched.scheduled_job('interval', minutes=5)
 def get_tickets_available():

@@ -12,27 +12,26 @@ tickets_available = False
 
 # Function to send email alert from Gmail if tickets are found
 def send_email():
-    print "Hola Mundo"
-    #to_list = ['ppinzani89@gmail.com', "salasmezzano@hotmail.com", "maximartine@hotmail.com", "mariano.ulf@gmail.com", "crnicolasfrias@gmail.com"]
-    #to = ", ".join(to_list)
-    #gmail_user = 'ppinzani89@gmail.com'
-    #gmail_pwd = '34767625'
-    #smtpserver = smtplib.SMTP("smtp.gmail.com",587)
-    #smtpserver.ehlo()
-    #smtpserver.starttls()
-    #smtpserver.ehlo
-    #try:
-    #    smtpserver.login(gmail_user, gmail_pwd)
-    #    header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: Entradas Che Culia! \n'
-    #    print header
-    #    msg = header + '\n Hay entradas. A comprar!!!  http://www.fifa.com/worldcup/organisation/ticketing/purchase.html \n\n'
-    #    smtpserver.sendmail(gmail_user, to_list, msg)
-    #    smtpserver.close()
-    #    print 'done!'
-    #except Exception as e:
-    #    print e
-    #    smtpserver.close()
-    #    send_email() # Retry
+    to_list = ['ppinzani89@gmail.com', "salasmezzano@hotmail.com", "maximartine@hotmail.com", "mariano.ulf@gmail.com", "crnicolasfrias@gmail.com"]
+    to = ", ".join(to_list)
+    gmail_user = 'ppinzani89@gmail.com'
+    gmail_pwd = '34767625'
+    smtpserver = smtplib.SMTP("smtp.gmail.com",587)
+    smtpserver.ehlo()
+    smtpserver.starttls()
+    smtpserver.ehlo
+    try:
+        smtpserver.login(gmail_user, gmail_pwd)
+        header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: Entradas Che Culia! \n'
+        print header
+        msg = header + '\n Hay entradas. A comprar!!!  http://www.fifa.com/worldcup/organisation/ticketing/purchase.html \n\n'
+        smtpserver.sendmail(gmail_user, to_list, msg)
+        smtpserver.close()
+        print 'done!'
+    except Exception as e:
+        print e
+        smtpserver.close()
+        send_email() # Retry
 
 
 @sched.scheduled_job('interval', minutes=5)
@@ -77,11 +76,10 @@ def get_tickets_available():
             match4_av = True
 
 
-    if match1_av or match2_av or match3_av or match4_av or True:
-        print "Hay Tickets!"
-        print strftime("%Y-%m-%d %H:%M:%S", gmtime())
-
+    if match1_av or match2_av or match3_av or match4_av:
         if not tickets_available:
+            print "Hay Tickets!"
+            print strftime("%Y-%m-%d %H:%M:%S", gmtime())
             send_email()
 
         tickets_available = True

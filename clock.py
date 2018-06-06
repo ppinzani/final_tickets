@@ -23,7 +23,6 @@ def send_email():
     try:
         smtpserver.login(gmail_user, gmail_pwd)
         header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: Entradas Che Culia! \n'
-        print header
         msg = header + '\n Hay entradas. A comprar!!!  http://www.fifa.com/worldcup/organisation/ticketing/purchase.html \n\n'
         smtpserver.sendmail(gmail_user, to_list, msg)
         smtpserver.close()

@@ -10,6 +10,14 @@ sched = BlockingScheduler()
 
 tickets_available = False
 
+def get_env_variable(var_name):
+    """ Get the environment variable or return exception """
+    try:
+        return os.environ[var_name]
+    except:
+        return ""
+
+
 # Function to send email alert from Gmail if tickets are found
 def send_email():
     to_list = ['ppinzani89@gmail.com', "salasmezzano@hotmail.com", "maximartine@hotmail.com", "mariano.ulf@gmail.com", "crnicolasfrias@gmail.com"]
@@ -35,7 +43,7 @@ def send_email():
 
 @sched.scheduled_job('interval', minutes=5)
 def send_email_sched():
-    if tickets_available:
+    if tickets_available and get_env_variable('SEND_EMAIL') == 'YES':
         send_email()
 
 

@@ -22,8 +22,8 @@ def get_env_variable(var_name):
 def send_email():
     to_list = ['ppinzani89@gmail.com', "salasmezzano@hotmail.com", "maximartine@hotmail.com", "mariano.ulf@gmail.com", "crnicolasfrias@gmail.com"]
     to = ", ".join(to_list)
-    gmail_user = 'ppinzani89@gmail.com'
-    gmail_pwd = '34767625'
+    gmail_user = get_env_variable('GMAIL_USER')
+    gmail_pwd = get_env_variable('GMAIL_PASS')
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()

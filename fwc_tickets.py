@@ -10,8 +10,8 @@ sched = BlockingScheduler()
 
 tickets_available = False
 
-matches_tocheck = ["IMT23", "IMT39", "IMT52", "IMT07"]
-to_email_list = ['example@gmail.com']
+matches_tocheck = ["IMT23", "IMT39", "IMT52", "IMT07"] # List of matches to check FIXME
+to_email_list = ['example@gmail.com'] # List of dest emails FIXME
 
 def get_env_variable(var_name):
     """ Get the environment variable or return exception """
@@ -24,8 +24,8 @@ def get_env_variable(var_name):
 # Function to send email alert from Gmail if tickets are found
 def send_email():
     to = ", ".join(to_email_list)
-    gmail_user = get_env_variable('GMAIL_USER') # Source email username
-    gmail_pwd = get_env_variable('GMAIL_PASS') # Source email password
+    gmail_user = get_env_variable('GMAIL_USER') # Source email username FIXME
+    gmail_pwd = get_env_variable('GMAIL_PASS') # Source email password FIXME
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()

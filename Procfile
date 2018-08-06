@@ -1,1 +1,1 @@
-clock: python clock.py
+clock: python final_tickets.py
